@@ -1,0 +1,23 @@
+{
+  "name": "es6-template-string",
+  "version": "1.0.0",
+  "description": "Easy and small template engine for the browser and nodejs",
+  "main": "index.js",
+  "scripts": {
+    "test": "node test.js"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/pixcai/es6-template-string.git"
+  },
+  "keywords": [
+    "es6",
+    "template"
+  ],
+  "author": "pixcai",
+  "license": "MIT",
+  "bugs": {
+    "url": "https://github.com/pixcai/es6-template-string/issues"
+  },
+  "homepage": "https://github.com/pixcai/es6-template-string#readme"
+}
