@@ -1,6 +1,10 @@
 # es6-template-string
 Easy and small template engine for the browser and nodejs
 
+[![npm](https://img.shields.io/npm/v/es6-template-string.svg?style=flat-square)](https://www.npmjs.com/package/es6-template-string)
+[![npm](https://img.shields.io/npm/dt/es6-template-string.svg?style=flat-square)](https://www.npmjs.com/package/es6-template-string)
+[![npm](https://img.shields.io/npm/l/es6-template-string.svg?style=flat-square)](https://www.npmjs.com/package/es6-template-string)
+
 # Install
 ```shell
 npm install --save es6-template-string
