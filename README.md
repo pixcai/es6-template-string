@@ -30,8 +30,8 @@ Example:
 ```js
 var template = require('es6-template-string');
 
-var getNodeVersion = template.compile('Node Version: ${ process.version }');
-getNodeVersion([locals]);
+var logNodeVersion = template.compile('Node Version: ${ process.version }');
+logNodeVersion([locals]);
 ```
 
 # Usage
