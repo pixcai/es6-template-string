@@ -32,7 +32,7 @@ function parse(variable) {
         declare += 'var ' + key + '=' + JSON.stringify(this[key]) + ';';
       }
     }
-    return Function(declare + 'console.log(this);return ' + __variable[1])();
+    return Function(declare + 'return ' + __variable[1])();
   };
 }
 
