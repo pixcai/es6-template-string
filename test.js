@@ -27,3 +27,11 @@ strictEqual(template('${context}', { [contextKey]: testValue }), testValue);
 
 console.log('Checking whether template-patterns can contain complex operations…');
 strictEqual(template(`\${${testKey} + ${JSON.stringify(testValue)}}`, testContext), testValue + testValue);
+
+console.log('Checking whether the `render`-method works as expected…');
+strictEqual(template.render(testPattern, testContext), testValue);
+
+console.log('Checking whether template-patterns can be compiled for later use…');
+let compiled = template.compile(testPattern);
+strictEqual(compiled(testContext), testValue);
+strictEqual(compiled({ [testKey]: testValue + testValue }), testValue + testValue);
