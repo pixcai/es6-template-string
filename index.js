@@ -17,22 +17,36 @@ template.compile = function(str) {
 }
 
 function parse(variable) {
-  var __variable = variable.match(/\{(.*)\}/);
-
   if (variable[0] === '\\') {
     return function() {
       return variable.slice(1);
     };
   }
   return function() {
-    var declare = '';
+    var contextKey = 'context';
+    
+    var context = new Proxy(
+      this,
+      {
+        has(target, key) {
+          if (key === contextKey) {
+            return true;
+          } else {
+            return key in target;
+          }
+        },
+        get(target, key) {
+          if (
+            key === contextKey &&
+            !(contextKey in target)) {
+              return new Function(`return ${contextKey};`).call({});
+          } else {
+            return target[key];
+          }
+        }
+      })
 
-    for (var key in this) {
-      if (this.hasOwnProperty(key)) {
-        declare += 'var ' + key + '=' + JSON.stringify(this[key]) + ';';
-      }
-    }
-    return Function(declare + 'return ' + __variable[1])();
+    return Function(contextKey, `with(${contextKey}) { return \`${variable}\`; }`).call({}, context);
   };
 }
 
