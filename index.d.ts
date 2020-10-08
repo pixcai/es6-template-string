@@ -49,7 +49,7 @@ type CompiledRenderer =
      * @returns
      * The rendered text.
      */
-    (context: Record<string, unknown>) => string;
+    (context?: Record<string, unknown>) => string;
 
 /**
  * Provides the functionality to render es6 string-templates.
