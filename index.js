@@ -16,8 +16,6 @@ template.compile = function(str) {
   };
 }
 
-var hasOwnProperty = Object.prototype.hasOwnProperty;
-
 function parse(variable) {
   if (variable[0] === '\\') {
     return function() {
@@ -26,29 +24,15 @@ function parse(variable) {
   }
   return function() {
     var contextKey = 'context';
-    
-    var context = new Proxy(
-      this,
-      {
-        has(target, key) {
-          if (key === contextKey) {
-            return true;
-          } else {
-            return key in target;
-          }
-        },
-        get(target, key) {
-          if (
-            key === contextKey &&
-            !(contextKey in target)) {
-              return new Function(`return ${contextKey};`).call({});
-          } else {
-            return target[key];
-          }
-        }
-      })
 
-    return Function(contextKey, `with(${contextKey}) { return \`${variable}\`; }`).call({}, context);
+    return Function(
+      contextKey,
+      `
+        if (!(${JSON.stringify(contextKey)} in ${contextKey})) {
+          ${contextKey}[${JSON.stringify(contextKey)}] = undefined;
+        }
+
+        with(${contextKey}) { return \`${variable}\`; }`).call({}, this);
   };
 }
 

@@ -20,7 +20,7 @@ console.log('Checking whether proxies can be used as context…');
 strictEqual(template(testPattern, new Proxy({}, { has: () => true, get: () => testValue })), testValue);
 
 console.log('Checking whether the context-object is read-protected…');
-throws(() => template(`\${${contextKey}}`));
+strictEqual(template(`\${${contextKey}}`), `${undefined}`);
 
 console.log(`Checking whether a context-variable called "${contextKey}" can be created…`);
 strictEqual(template('${context}', { [contextKey]: testValue }), testValue);
