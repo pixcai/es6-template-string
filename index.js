@@ -16,6 +16,8 @@ template.compile = function(str) {
   };
 }
 
+var hasOwnProperty = Object.prototype.hasOwnProperty;
+
 function parse(variable) {
   var __variable = variable.match(/\{(.*)\}/);
 
@@ -28,11 +30,11 @@ function parse(variable) {
     var declare = '';
 
     for (var key in this) {
-      if (this.hasOwnProperty(key)) {
-        declare += 'var ' + key + '=' + JSON.stringify(this[key]) + ';';
-      }
+        if (hasOwnProperty.call(this, key)) {
+          declare += 'var ' + key + "=arguments[0]['" + key + "'];";
+        }
     }
-    return Function(declare + 'return ' + __variable[1])();
+    return Function(declare + 'return ' + __variable[1])(this);
   };
 }
 
