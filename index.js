@@ -16,6 +16,8 @@ template.compile = function(str) {
   };
 }
 
+var hasOwnProperty = Object.prototype.hasOwnProperty;
+
 function parse(variable) {
   if (variable[0] === '\\') {
     return function() {
