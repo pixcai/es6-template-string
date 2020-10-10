@@ -6,7 +6,7 @@ template.compile = function(str) {
   var es6TemplateRegex = /(\\)?\$\{([^\{\}\\]+)\}/g;
 
   if (typeof str !== 'string') {
-    throw new Error('The first argument must be a template string');
+    throw new Error('The argument must be a string type');
   }
 
   return function(locals) {
@@ -19,22 +19,23 @@ template.compile = function(str) {
 var hasOwnProperty = Object.prototype.hasOwnProperty;
 
 function parse(variable) {
-  var __variable = variable.match(/\{(.*)\}/);
+  var exp = variable.match(/\{(.*)\}/)[1];
 
   if (variable[0] === '\\') {
     return function() {
       return variable.slice(1);
     };
   }
+
   return function() {
     var declare = '';
 
     for (var key in this) {
         if (hasOwnProperty.call(this, key)) {
-          declare += 'var ' + key + "=arguments[0]['" + key + "'];";
+          declare += 'var ' + key + "=locals['" + key + "'];";
         }
     }
-    return Function(declare + 'return ' + __variable[1])(this);
+    return Function('locals', declare + 'return ' + exp)(this);
   };
 }
 
